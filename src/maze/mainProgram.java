@@ -17,7 +17,7 @@ public class mainProgram {
        maze.printMazeAsAdjacecyList();
        maze.printMaze();
 
-        BFS bfs = new BFS();
-        bfs.searchForESC(maze.getStartingPoint());
+        searchForESC s = new searchForESC();
+        s.BFS(maze.getStartingPoint());
     }
 }
