@@ -22,9 +22,9 @@ public class Node {
     }
     public Position position=new Position();
 
-    static enum Types {
+    enum Types {
         PATH, START, END
-    };
+    }
     public Types type = Types.PATH;
     public Node parent; //who was parent during creation during Prim alghorithm
     public boolean visited = false; //changed during creation, needs to be cleared before doing another alghorithm

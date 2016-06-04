@@ -16,5 +16,8 @@ public class mainProgram {
        Maze maze = mg.generateMaze(0, 0, 4);
        maze.printMazeAsAdjacecyList();
        maze.printMaze();
+
+        BFS bfs = new BFS();
+        bfs.searchForESC(maze.getStartingPoint());
     }
 }
