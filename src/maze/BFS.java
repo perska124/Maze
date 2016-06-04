@@ -8,10 +8,10 @@ import java.util.Queue;
  */
 public class BFS {
 
-    public void searchForESC(maze.Node Start){
-        maze.Node v = Start;
-        maze.Node u;
-        Queue<maze.Node> Q = new PriorityQueue<>();
+    public void searchForESC(Node Start){
+        Node v = Start;
+        Node u;
+        Queue<Node> Q = new PriorityQueue<>();
         Q.add(v);
         Start.visited = true;
         while (!Q.isEmpty()){

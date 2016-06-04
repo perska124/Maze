@@ -15,13 +15,13 @@ import java.util.Random;
 public class MazeGenerator {
 
     MazeGenerator() {
-        
+
     }
 
-    public Maze generateMaze(int startX, int startY,int size) {
-        
+    public Maze generateMaze(int startX, int startY, int size) {
+
         //defining var before
-        int mazeSize=size;
+        int mazeSize = size;
         Node[][] Maze = new Node[mazeSize][mazeSize]; //0 - wall, 1 - path, 2 -starting point
         for (int i = 0; i < mazeSize; i++) {
             for (int j = 0; j < mazeSize; j++) {
@@ -29,7 +29,7 @@ public class MazeGenerator {
             }
         }
         ArrayList<Node> walls = new ArrayList<>();   //list of walls around node
-        
+
         //start alghorithm
         Node start = Maze[startX][startY];
         start.visited = true;
@@ -50,8 +50,7 @@ public class MazeGenerator {
             walls.add(Maze[start.position.x][start.position.y + 1]); //down
             Maze[start.position.x][start.position.y + 1].parent = start;
         }
-        
-        
+
         while (!walls.isEmpty()) {
 
             int i = new Random().nextInt((walls.size()));
@@ -83,17 +82,25 @@ public class MazeGenerator {
             }
             walls.remove(n);
         }
-        
+
         //create random end
         Node endPoint;
-        do{
-            int x= new Random().nextInt(mazeSize);
-            int y=new Random().nextInt(mazeSize);
-            endPoint=Maze[x][y];
-        }while(endPoint.type==Node.Types.START); //if end point==start point repeat
-        endPoint.type=Node.Types.END;
-        return new Maze(Maze,Maze[startX][startY]);
+        do {
+            int x = new Random().nextInt(mazeSize);
+            int y = new Random().nextInt(mazeSize);
+            endPoint = Maze[x][y];
+        } while (endPoint.type == Node.Types.START); //if end point==start point repeat
+        endPoint.type = Node.Types.END;
+
+        //clearing node unimportant info
+        for (int i = 0; i < mazeSize; i++) {
+            for (int j = 0; j < mazeSize; j++) {
+                Maze[i][j].parent=null;
+                Maze[i][j].visited=false;
+            }
+        }
+        
+        return new Maze(Maze, Maze[startX][startY]);
     }
 
-    
 }
