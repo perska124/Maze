@@ -11,10 +11,15 @@ import java.util.ArrayList;
  *
  * @author Damian
  */
-public class Node {
+public class Node  implements Comparable<Node>{
     public Node(int x, int y){
         this.position.x=x;
         this.position.y=y;
+    }
+
+    @Override
+    public int compareTo(Node o) {
+        return 1;
     }
     class Position {
         public int x = 0;
