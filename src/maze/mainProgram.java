@@ -13,7 +13,7 @@ public class mainProgram {
     
     public static void main(String[] args) {
        MazeGenerator mg=new MazeGenerator();
-       Maze maze = mg.generateMaze(0, 0, 4);
+       Maze maze = mg.generateMaze(0, 0, 10);
        maze.printMazeAsAdjacecyList();
        maze.printMaze();
 
