@@ -96,4 +96,8 @@ public class Maze {
     public Node getStartingPoint(){
         return startingPoint;
     }
+    
+    public int getSize(){
+        return mazeSize;
+    }
 }
