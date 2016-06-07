@@ -11,7 +11,7 @@ public class searchForESC {
     public void BFS(Node Start) {
         System.out.println("BFS");
         Node v = Start;
-        Node u;
+        Node u = null;
         Queue<Node> Q = new PriorityQueue<>();
         Q.add(v);
         Start.visited = true;
@@ -27,10 +27,16 @@ public class searchForESC {
                 }
                 if (u.visited == true) {
                 } else {
+                    u.parent=v;
                     Q.add(u);
                     u.visited = true;
                 }
             }
+
+        }
+        while(Start.position.x!=u.position.x && Start.position.y!=u.position.y){
+            System.out.println(u.parent);
+            u = u.parent;
         }
     }
 }
