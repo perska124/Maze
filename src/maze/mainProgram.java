@@ -18,6 +18,6 @@ public class mainProgram {
        maze.printMaze();
 
         searchForESC s = new searchForESC();
-        s.BFS(maze.getStartingPoint());
+        s.BFS(maze);
     }
 }

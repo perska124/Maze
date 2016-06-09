@@ -8,51 +8,49 @@ import java.util.Queue;
  */
 public class searchForESC {
 
-    public void BFS(Node Start) {
-        System.out.println("BFS");
-        Node v = Start;
+    public void BFS(Maze MyMaze) {
+        Node Start = MyMaze.getStartingPoint(); // Pobieranie punktu startowego
+        Node v = Start;     //Tworzenie zmiennych koniecznych do dzialania algorytmu
         Node u = null;
-        Queue<Node> Q = new PriorityQueue<>();
-        Q.add(v);
-        Start.visited = true;
-        int max = 0;
+        Queue<Node> Q = new PriorityQueue<>();  // Tworzenie kolejki priorytetowej
+        Q.add(Start);   // Dodawanie punktu startowego na poczatek kolejki
+        Start.visited = true;   // Ustawianie pukntu startowego jako odwiedzony
+
+
 
         outerloop:
-        while (!Q.isEmpty()) {
-            v = Q.poll();
-            for (int i = 0; i < v.neighbors.size(); i++) {
-
-                u = v.neighbors.get(i);
-                max = Math.max(u.position.x, u.position.y);
-                if (u.type == Node.Types.END) {
+        while (!Q.isEmpty()) { // Poczatke petli algorytmu BFS
+            v = Q.poll();   // Pobieranie i usuwanie z poczatktu kolejki wierzcholka
+            for (int i = 0; i < v.neighbors.size(); i++) {  // Poczatek petli po wszystkich sasiadach wiecholka v
+                u = v.neighbors.get(i); // Pobieranie kolejnych sasiadow wierzcholka v
+                if (u.type == Node.Types.END) { // Warunek wyjscia z labiryntu
                     System.out.println("START at: X= " + Start.position.x + " Y= " + Start.position.y);
                     System.out.println("END at: X= " + u.position.x + " Y= " + u.position.y);
-                    u.parent = v;
+                    u.parent = v;   // Przypisywanie prodzica wierdzholka u
                     break outerloop;
                 }
-                if (!u.visited) {
-                    u.parent = v;
-                    Q.add(u);
-                    u.visited = true;
+                if (!u.visited) {   // Warunek nieodwiedzonego wierzcholka
+                    u.parent = v; // Przypisywanie prodzica wierdzholka u
+                    Q.add(u);   // Dodawanianie wierzcholka u na koniec kolejki
+                    u.visited = true;  // Ustawianie wierzcholka u jako odwiedzony
                 }
             }
-        }
+        } // Koniec petli algorytmu BFS
 
-        int[][] tab = new int[max + 1][max + 1];
-        tab[u.position.x][u.position.y] = 3;
+
+        int max = MyMaze.getSize();  // Pobieranie rozmiaru labiryntu
+        int[][] tab = new int[max + 1][max + 1];    // Tworzenie tablicy na podstawie ktorej bedzie rysowana sciezka
+        tab[u.position.x][u.position.y] = 3;    // Ustawianie wyscia z labiryntu
         System.out.println(u.position.x + " " + u.position.y);
-        while (Start != u) {
-            if (u.parent.position.x > max || u.parent.position.y > max) continue;
-            else {
-                tab[u.parent.position.x][u.parent.position.y] = 1;
-            }
+        while (Start != u) {           // Petla ustalajaca sciezke wyjscia
+            tab[u.parent.position.x][u.parent.position.y] = 1;  // Ustawianie kolejnych krokow do wyjsia
             System.out.println(u.parent.position.x + " " + u.parent.position.y);
-            u = u.parent;
+            u = u.parent;   // Ustawianie rodzica wierzcholka u jako wierzcholek roboczy
         }
 
-        tab[Start.position.x][Start.position.y] = 2;
+        tab[Start.position.x][Start.position.y] = 2;    // Dodawanie wejscia do labiryntu
 
-        for (int[] aTab : tab) {
+        for (int[] aTab : tab) {    // Petla po tablicy wypisujaca sciezke wyjscia z labiryntu
             for (int anATab : aTab) {
                 if (anATab == 1) System.out.print("+");
                 else if (anATab == 2) System.out.print("S");
