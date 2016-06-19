@@ -16,9 +16,9 @@ public class mainProgram extends JFrame {
 
     public static void main(String[] args) throws InterruptedException {
         MazeGenerator mg = new MazeGenerator();    //tworzy generator
-        Maze maze = mg.generateMaze(0, 0, 10);   //generuje labirynt
+        Maze maze = mg.generateMaze(0, 0, 100);   //generuje labirynt
         maze.printMazeAsAdjacecyList();          //wysweitla w postaci listy sasiedztwa
-        maze.printMaze();                        //wyswietla w postaci siatki 2d
+        //maze.printMaze();                        //wyswietla w postaci siatki 2d
 
         mainProgram mp = new mainProgram();
         Grid grid = new Grid(maze);

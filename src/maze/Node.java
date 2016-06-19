@@ -26,7 +26,7 @@ public class Node  implements Comparable<Node>{
     public Position position=new Position();
 
     enum Types {    //typy - sciezka, start, koniec
-        PATH, START, END
+        PATH, START, END, ESCAPE_PATH
     }
     public Types type = null;
     public Node parent; //who was parent during creation during Prim alghorithm

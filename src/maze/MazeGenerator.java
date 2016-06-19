@@ -23,9 +23,9 @@ public class MazeGenerator {
         //ustawianie zmiennych przed algorytmem
         int mazeSize = size;
         Node[][] Maze = new Node[mazeSize][mazeSize]; 
-        for (int i = 0; i < mazeSize; i++) {
-            for (int j = 0; j < mazeSize; j++) {
-                Maze[j][i] = new Node(j, i);
+        for (int x = 0; x < mazeSize; x++) {
+            for (int y = 0; y < mazeSize; y++) {
+                Maze[x][y] = new Node(x, y);
             }
         }
         ArrayList<Node> walls = new ArrayList<>();   //list of walls around node

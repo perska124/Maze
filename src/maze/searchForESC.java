@@ -29,10 +29,10 @@ public class searchForESC {
                     u.parent = v;   // Przypisywanie prodzica wierdzholka u
                     Q.clear();
                     break outerloop;
-                }
+                }else
                 if (!u.visited) {   // Warunek nieodwiedzonego wierzcholka
                     grid.setAsPath(u.position.x,u.position.y);
-                    Thread.sleep(100);
+                    Thread.sleep(20);
                     u.parent = v; // Przypisywanie prodzica wierdzholka u
                     Q.add(u);   // Dodawanianie wierzcholka u na koniec kolejki
                     u.visited = true;  // Ustawianie wierzcholka u jako odwiedzony
@@ -42,22 +42,34 @@ public class searchForESC {
 
 
         int max = MyMaze.getSize();  // Pobieranie rozmiaru labiryntu
-        int[][] tab = new int[max + 1][max + 1];    // Tworzenie tablicy na podstawie ktorej bedzie rysowana sciezka
+        int[][] tab = new int[max ][max ];    // Tworzenie tablicy na podstawie ktorej bedzie rysowana sciezka
         tab[u.position.x][u.position.y] = 3;    // Ustawianie wyscia z labiryntu
         System.out.println(u.position.x + " " + u.position.y);
         while (Start != u) {           // Petla ustalajaca sciezke wyjscia
             tab[u.parent.position.x][u.parent.position.y] = 1;  // Ustawianie kolejnych krokow do wyjsia
             System.out.println(u.parent.position.x + " " + u.parent.position.y);
             u = u.parent;   // Ustawianie rodzica wierzcholka u jako wierzcholek roboczy
+            if(u.type!=Node.Types.START && u.type!=Node.Types.END) grid.setAsEscapePath(u.position.x, u.position.y);
         }
+        grid.repaint();
 
         tab[Start.position.x][Start.position.y] = 2;    // Dodawanie wejscia do labiryntu
 
-        for (int[] aTab : tab) {    // Petla po tablicy wypisujaca sciezke wyjscia z labiryntu
-            for (int anATab : aTab) {
-                if (anATab == 1) System.out.print("+");
-                else if (anATab == 2) System.out.print("S");
-                else if (anATab == 3) System.out.print("K");
+//        for (int[] aTab : tab) {    // Petla po tablicy wypisujaca sciezke wyjscia z labiryntu
+//            for (int anATab : aTab) {
+//                if (anATab == 1) System.out.print("+");
+//                else if (anATab == 2) System.out.print("S");
+//                else if (anATab == 3) System.out.print("K");
+//                else System.out.print("-");
+//            }
+//            System.out.println();
+//        }
+        
+        for (int j = 0; j < tab.length; j++) {
+            for (int  i= 0; i < tab[j].length; i++) {
+                if (tab[i][j] == 1) System.out.print("+");
+                else if (tab[i][j] == 2) System.out.print("S");
+                else if (tab[i][j] == 3) System.out.print("K");
                 else System.out.print("-");
             }
             System.out.println();

@@ -1,6 +1,8 @@
 package maze;
 import javax.swing.*;
 import java.awt.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Grid extends JPanel {
 
@@ -23,29 +25,27 @@ public class Grid extends JPanel {
         this.maze = maze;
         size = maze.getSize();
         gridNodes = new GridNode[size][size];
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                gridNodes[i][j] = new GridNode();
-                Node n = maze.getNodes()[i][j];
+        for (int y = 0; y < size; y++) {
+            for (int x = 0; x < size; x++) {
+                gridNodes[y][x] = new GridNode();//tworzenie wierzcholka siatki do wyswietlania
+                Node n = maze.getNodes()[x][y]; 
+                
                 //dodawanie scian
                 for (Node neighbor : n.neighbors) {
                     if (neighbor.position.x > n.position.x) {
-                        gridNodes[i][j].hasRight = true;
+                        gridNodes[y][x].hasRight = true;
                         
                     }
                     if (neighbor.position.x < n.position.x) {
-                        gridNodes[i][j].hasLeft = true;
+                        gridNodes[y][x].hasLeft = true;
                     }
                     if (neighbor.position.y < n.position.y) {
-                        gridNodes[i][j].hasUp = true;
+                        gridNodes[y][x].hasUp = true;
                     }
                     if (neighbor.position.y > n.position.y) {
-                        gridNodes[i][j].hasDown = true;
+                        gridNodes[y][x].hasDown = true;
                     }
-                    //System.out.println("przejscie z ["+n.position.x+" "+n.position.y+ "] do ["+neighbor.position.x+" "+neighbor.position.y+"]");
                 }
-                System.out.println("gridNode "+i+" "+j);
-                gridNodes[i][j].print();
             }
         }
     }
@@ -58,25 +58,30 @@ public class Grid extends JPanel {
         int width = (int) getSize().getWidth();
 
         //draw rectangles and fill them
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                int cellX = ((width - 10) / size) * j + 5;
-                int cellY = ((heigth - 10) / size) * i + 5;
+        for (int y = 0; y < size; y++) {
+            for (int x = 0; x < size; x++) {
+                int cellX = ((width - 10) / size) * x + 5;
+                int cellY = ((heigth - 10) / size) *y + 5;
 
-                //g.drawRect(cellX, cellY, (width - 10) / size, (heigth - 10) / size);
                 
                 //koloruj drogi labiryntu
-                if (maze.getNodes()[i][j].type == null) {
+                if (maze.getNodes()[x][y].type == null) {
                     g.setColor(Color.blue);
                     g.fillRect(cellX, cellY, ((width - 10) / size), ((heigth - 10) / size));
                 }
-                //koloruj sciezkie poczatek-koniec
-                if (maze.getNodes()[i][j].type == Node.Types.PATH) {
+                //koloruj sciezkie szukania
+                if (maze.getNodes()[x][y].type == Node.Types.PATH) {
                     g.setColor(Color.yellow);
                     g.fillRect(cellX, cellY, ((width - 10) / size), ((heigth - 10) / size));
                 }
+                //koloruj sciezkie wyjscia
+                if (maze.getNodes()[x][y].type == Node.Types.ESCAPE_PATH) {
+                    g.setColor(Color.green);
+                    g.fillRect(cellX, cellY, ((width - 10) / size), ((heigth - 10) / size));
+                }
+                
                 //koloruj poczatek i koniec
-                if(maze.getNodes()[i][j].type == Node.Types.START || maze.getNodes()[i][j].type == Node.Types.END){
+                if(maze.getNodes()[x][y].type == Node.Types.START || maze.getNodes()[x][y].type == Node.Types.END){
                     g.setColor(Color.red);
                     g.fillRect(cellX, cellY, ((width - 10) / size), ((heigth - 10) / size));
                 }
@@ -87,19 +92,24 @@ public class Grid extends JPanel {
                 g.setColor(Color.black);
                 
                //x,y 
-                if (!gridNodes[j][i].hasLeft || j==0) {
+                if ((!gridNodes[y][x].hasLeft) || x==0) {
                     g.drawLine(cellX, cellY, cellX, cellY + ((heigth - 10) / size) );
+                    g.drawLine(cellX-1, cellY, cellX-1, cellY + ((heigth - 10) / size) );
                 }
-                if (!gridNodes[j][i].hasRight || j==size-1) {
+                if ((!gridNodes[y][x].hasRight) || x==size-1) {
                     g.drawLine(cellX+((width - 10) / size), cellY, cellX+((width - 10) / size) , cellY +((heigth - 10) / size)  );
+                    g.drawLine(cellX+((width - 10) / size)+1, cellY, cellX+((width - 10) / size) +1 , cellY +((heigth - 10) / size)  );
                 }
-                if (!gridNodes[j][i].hasDown || i== size-1) {
+                if (!gridNodes[y][x].hasDown || y==size-1) {
                     g.drawLine(cellX, cellY + ((heigth - 10) / size), cellX + ((width - 10) / size) , cellY + ((heigth - 10) / size) );
+                    g.drawLine(cellX+1, cellY + ((heigth - 10) / size)+1, cellX + ((width - 10) / size) +1, cellY + ((heigth - 10) / size)+1);
+                    //g.drawLine(cellX+2, cellY + ((heigth - 10) / size)+2, cellX + ((width - 10) / size) +2, cellY + ((heigth - 10) / size)+2);
                 }
-                if (!gridNodes[j][i].hasUp || i==0) {
+                if ((!gridNodes[y][x].hasUp) || y==0) {
                    g.drawLine(cellX, cellY, cellX + ((width - 10) / size) , cellY);
+                   g.drawLine(cellX, cellY-1, cellX + ((width - 10) / size), cellY-1);
+                   //g.drawLine(cellX, cellY+2, cellX + ((width - 10) / size) , cellY+2);
                 }
-
             }
         }
     }
@@ -107,6 +117,10 @@ public class Grid extends JPanel {
     public void setAsPath(int x, int y) {
         maze.getNodes()[x][y].type = Node.Types.PATH;
         repaint();
+    }
+    public void setAsEscapePath(int x, int y) {
+        maze.getNodes()[x][y].type = Node.Types.ESCAPE_PATH;
+        
     }
 
 }
