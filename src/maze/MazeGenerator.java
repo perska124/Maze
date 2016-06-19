@@ -22,10 +22,10 @@ public class MazeGenerator {
     public Maze generateMaze(int startX, int startY, int size) {
         //ustawianie zmiennych przed algorytmem
         int mazeSize = size;
-        Node[][] Maze = new Node[mazeSize][mazeSize]; //0 - wall, 1 - path, 2 -starting point
+        Node[][] Maze = new Node[mazeSize][mazeSize]; 
         for (int i = 0; i < mazeSize; i++) {
             for (int j = 0; j < mazeSize; j++) {
-                Maze[i][j] = new Node(i, j);
+                Maze[j][i] = new Node(j, i);
             }
         }
         ArrayList<Node> walls = new ArrayList<>();   //list of walls around node

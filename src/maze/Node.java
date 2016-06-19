@@ -28,7 +28,7 @@ public class Node  implements Comparable<Node>{
     enum Types {    //typy - sciezka, start, koniec
         PATH, START, END
     }
-    public Types type = Types.PATH;
+    public Types type = null;
     public Node parent; //who was parent during creation during Prim alghorithm
     public boolean visited = false; //changed during creation, needs to be cleared before doing another alghorithm
     public ArrayList<Node> neighbors= new ArrayList<>();

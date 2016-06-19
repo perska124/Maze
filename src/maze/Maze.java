@@ -93,6 +93,8 @@ public class Maze {
 
         }
     }
+    
+    public Node[][] getNodes(){return Maze;};
     //zwraca punkt startowy
     public Node getStartingPoint(){
         return startingPoint;
