@@ -5,11 +5,8 @@
  */
 package maze;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  *
@@ -17,11 +14,12 @@ import javax.swing.JPanel;
  */
 public class mainProgram extends JFrame {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         MazeGenerator mg = new MazeGenerator();    //tworzy generator
-        Maze maze = mg.generateMaze(0, 0, 5);   //generuje labirynt
+        Maze maze = mg.generateMaze(0, 0, 10);   //generuje labirynt
         maze.printMazeAsAdjacecyList();          //wysweitla w postaci listy sasiedztwa
         maze.printMaze();                        //wyswietla w postaci siatki 2d
+
         mainProgram mp = new mainProgram();
         Grid grid = new Grid(maze);
         mp.getContentPane().add(grid);
@@ -31,8 +29,9 @@ public class mainProgram extends JFrame {
         mp.setVisible(true);
         mp.setMinimumSize(new Dimension(550, 550));
         grid.repaint();
+
         searchForESC s = new searchForESC();    //tworzenie obiektu klasy szukajacej sciezki
-        s.BFS(maze);    //szukanie sciezki poczatek-koniec
+        s.BFS(maze,grid);    //szukanie sciezki poczatek-koniec
 
     }
 }

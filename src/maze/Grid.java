@@ -1,9 +1,6 @@
 package maze;
-import java.awt.Color;
-import java.awt.Graphics;
-import javax.swing.JPanel;
-import maze.Maze;
-import maze.Node;
+import javax.swing.*;
+import java.awt.*;
 
 public class Grid extends JPanel {
 
@@ -107,7 +104,7 @@ public class Grid extends JPanel {
         }
     }
 
-    public void setAsPath(int x, int y, boolean value) {
+    public void setAsPath(int x, int y) {
         maze.getNodes()[x][y].type = Node.Types.PATH;
         repaint();
     }

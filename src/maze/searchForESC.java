@@ -8,7 +8,7 @@ import java.util.Queue;
  */
 public class searchForESC {
 
-    public void BFS(Maze MyMaze) {
+    public void BFS(Maze MyMaze, Grid grid) throws InterruptedException {
         Node Start = MyMaze.getStartingPoint(); // Pobieranie punktu startowego
         Node v = Start;     //Tworzenie zmiennych koniecznych do dzialania algorytmu
         Node u = null;
@@ -27,9 +27,12 @@ public class searchForESC {
                     System.out.println("START at: X= " + Start.position.x + " Y= " + Start.position.y);
                     System.out.println("END at: X= " + u.position.x + " Y= " + u.position.y);
                     u.parent = v;   // Przypisywanie prodzica wierdzholka u
+                    Q.clear();
                     break outerloop;
                 }
                 if (!u.visited) {   // Warunek nieodwiedzonego wierzcholka
+                    grid.setAsPath(u.position.x,u.position.y);
+                    Thread.sleep(100);
                     u.parent = v; // Przypisywanie prodzica wierdzholka u
                     Q.add(u);   // Dodawanianie wierzcholka u na koniec kolejki
                     u.visited = true;  // Ustawianie wierzcholka u jako odwiedzony
