@@ -1,21 +1,10 @@
 package maze;
 import javax.swing.*;
 import java.awt.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Grid extends JPanel {
 
-    class GridNode {
-
-        boolean hasLeft, hasRight, hasUp, hasDown;
-        void print(){
-            System.out.println("left: "+hasLeft);
-            System.out.println("right: "+hasRight);
-            System.out.println("up: "+hasUp);
-            System.out.println("down: "+hasDown);
-        }
-    }
+    
     private boolean[][] squares;
     final int size;
     Maze maze;
@@ -103,24 +92,24 @@ public class Grid extends JPanel {
                 if (!gridNodes[y][x].hasDown || y==size-1) {
                     g.drawLine(cellX, cellY + ((heigth - 10) / size), cellX + ((width - 10) / size) , cellY + ((heigth - 10) / size) );
                     g.drawLine(cellX+1, cellY + ((heigth - 10) / size)+1, cellX + ((width - 10) / size) +1, cellY + ((heigth - 10) / size)+1);
-                    //g.drawLine(cellX+2, cellY + ((heigth - 10) / size)+2, cellX + ((width - 10) / size) +2, cellY + ((heigth - 10) / size)+2);
                 }
                 if ((!gridNodes[y][x].hasUp) || y==0) {
                    g.drawLine(cellX, cellY, cellX + ((width - 10) / size) , cellY);
                    g.drawLine(cellX, cellY-1, cellX + ((width - 10) / size), cellY-1);
-                   //g.drawLine(cellX, cellY+2, cellX + ((width - 10) / size) , cellY+2);
                 }
             }
         }
     }
-
-    public void setAsPath(int x, int y) {
+    
+    //ustawia wierzchołek o współrzędnych x,y jako odwiedzony
+    public void setAsPath(int x, int y) {   
         maze.getNodes()[x][y].type = Node.Types.PATH;
         repaint();
     }
-    public void setAsEscapePath(int x, int y) {
+    
+    //ustawia wierzchołek o współrzędnych x,y jako czesc sciezki prowadzacej do wyjscia
+    public void setAsEscapePath(int x, int y) { 
         maze.getNodes()[x][y].type = Node.Types.ESCAPE_PATH;
-        
     }
 
 }

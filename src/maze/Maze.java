@@ -1,20 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package maze;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Damian
- */
 public class Maze {
     
     private int mazeSize;   //rozmiar labiryntu
-    private Node startingPoint; //punkt startowy
+    private final Node startingPoint; //punkt startowy
     private Node[][] Maze = new Node[mazeSize][mazeSize]; // tanblica z punktami labiryntu - 0 - wall, 1 - path, 2 -starting point
     Maze(Node[][] Maze,Node startingPoint){
         this.Maze=Maze;
