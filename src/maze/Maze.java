@@ -13,14 +13,15 @@ import java.util.ArrayList;
  */
 public class Maze {
     
-    private int mazeSize;
-    private Node startingPoint;
-    private Node[][] Maze = new Node[mazeSize][mazeSize]; //0 - wall, 1 - path, 2 -starting point
+    private int mazeSize;   //rozmiar labiryntu
+    private Node startingPoint; //punkt startowy
+    private Node[][] Maze = new Node[mazeSize][mazeSize]; // tanblica z punktami labiryntu - 0 - wall, 1 - path, 2 -starting point
     Maze(Node[][] Maze,Node startingPoint){
         this.Maze=Maze;
         this.mazeSize=this.Maze.length;
         this.startingPoint=startingPoint;
     }
+    //funkcja wyswietlajaca labirynt w postaci siatki
     public void printMaze() {
         
         for (int j = 0; j < mazeSize; j++) {
@@ -79,7 +80,7 @@ public class Maze {
         }
 
     }
-
+    //funkcja wyswietlajaca labirynt w postaci listy sasiedztwa
     public void printMazeAsAdjacecyList() {
         for (int i = 0; i < mazeSize; i++) {
             for (int j = 0; j < mazeSize; j++) {
@@ -92,11 +93,11 @@ public class Maze {
 
         }
     }
-    
+    //zwraca punkt startowy
     public Node getStartingPoint(){
         return startingPoint;
     }
-    
+    //zwraca rozmiar labityntu
     public int getSize(){
         return mazeSize;
     }

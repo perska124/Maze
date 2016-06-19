@@ -7,10 +7,7 @@ package maze;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Damian
- */
+//klasa reprezentujaca punkt w labiryncie
 public class Node  implements Comparable<Node>{
     public Node(int x, int y){
         this.position.x=x;
@@ -21,13 +18,14 @@ public class Node  implements Comparable<Node>{
     public int compareTo(Node o) {
         return 1;
     }
+    //pozycja w tablicy 2d labiryntu
     class Position {
         public int x = 0;
         public int y = 0;
     }
     public Position position=new Position();
 
-    enum Types {
+    enum Types {    //typy - sciezka, start, koniec
         PATH, START, END
     }
     public Types type = Types.PATH;

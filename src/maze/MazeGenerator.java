@@ -17,10 +17,10 @@ public class MazeGenerator {
     MazeGenerator() {
 
     }
-
+    //funkcja generujaca labitynt i zwracajaca obiekt typu Maze
+    //
     public Maze generateMaze(int startX, int startY, int size) {
-
-        //defining var before
+        //ustawianie zmiennych przed algorytmem
         int mazeSize = size;
         Node[][] Maze = new Node[mazeSize][mazeSize]; //0 - wall, 1 - path, 2 -starting point
         for (int i = 0; i < mazeSize; i++) {
@@ -30,7 +30,7 @@ public class MazeGenerator {
         }
         ArrayList<Node> walls = new ArrayList<>();   //list of walls around node
 
-        //start alghorithm
+        //start algorytmu
         Node start = Maze[startX][startY];
         start.visited = true;
         start.type = Node.Types.START;
@@ -51,6 +51,7 @@ public class MazeGenerator {
             Maze[start.position.x][start.position.y + 1].parent = start;
         }
 
+        //dopoki są elementy nieodwiedzone
         while (!walls.isEmpty()) {
 
             int i = new Random().nextInt((walls.size()));
@@ -83,7 +84,7 @@ public class MazeGenerator {
             walls.remove(n);
         }
 
-        //create random end
+        //tworzenie losowo konca
         Node endPoint;
         do {
             int x = new Random().nextInt(mazeSize);
@@ -92,7 +93,7 @@ public class MazeGenerator {
         } while (endPoint.type == Node.Types.START); //if end point==start point repeat
         endPoint.type = Node.Types.END;
 
-        //clearing node unimportant info
+        //czyszczenie juz niepotrzebnych danych
         for (int i = 0; i < mazeSize; i++) {
             for (int j = 0; j < mazeSize; j++) {
                 Maze[i][j].parent=null;
